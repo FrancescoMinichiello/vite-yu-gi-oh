@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       cardsList: [],
-      apiUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=10&offset=0"
+      apiUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=30&offset=0"
     }
   },
   methods: {
@@ -24,11 +24,15 @@ export default {
 </script>
 
 <template>
-  <div v-for="card in cardsList" :key="card.id">
+  <div class="box-cards" v-for="card in cardsList" :key="card.id">
+    <img class="img-fluid" :src="card.card_images[0].image_url" alt="">
     <p>{{ card.name }}</p>
   </div>
 </template>
 
-<style lang="scss"  scoped>
+<style lang="scss" scoped>
 @use 'bootstrap/scss/bootstrap.scss' as *;
+.box-cards{
+  width: 200px;
+}
 </style>
