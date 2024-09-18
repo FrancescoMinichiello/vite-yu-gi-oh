@@ -1,12 +1,13 @@
 <script>
+import CardList from './CardList.vue';
 export default{
 
   components:{
-
+CardList
   },
     data(){
         return{
-          
+       
         }
     }
 }
@@ -17,7 +18,7 @@ export default{
     <div class="container-fluid box-cards py-4 px-5">
       <div class="row">
         <div class="col">
-        CARDS
+        <CardList/>
         </div>
       </div>
     </div>
