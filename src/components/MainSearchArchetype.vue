@@ -3,21 +3,20 @@ import axios from 'axios';
 export default{
     data(){
         return{
-            archetypesList: [],
             selectedArchetype: '',
         }
     },
+    props: {
+       archetypesList: {
+         type: Array,
+         required: true,
+    },
+    },
     methods:{
-     getArchetypes() {
-       axios.get('https://db.ygoprodeck.com/api/v7/archetypes.php')
-        .then((response) => {
-          this.archetypesList = response.data;
-    }) 
-    },
-    },
-     created() {
-       this.getArchetypes();
+     onArchetypeChange() {
+       this.$emit('archetype-changed', this.selectedArchetype);
      },
+    },
 }
 </script>
 <template>

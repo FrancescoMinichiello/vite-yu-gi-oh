@@ -1,29 +1,53 @@
 <script>
 import axios from 'axios'
+import MainSearchArchetype from './MainSearchArchetype.vue';
 
 export default {
   data() {
     return {
       cardsList: [],
-      apiUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=30&offset=0"
+      apiUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=30&offset=0",
+      archetypesList: [],
+      selectedArchetype: ''
     }
+  },
+  components:{
+    MainSearchArchetype
   },
   methods: {
-    getCards(){
-      axios.get(this.apiUrl)
-      .then((response)=>{
-        console.log(response.data.data);
-        this.cardsList = response.data.data;
+    getCards(archetype = '') {
+  let url = this.apiUrl;
+  if (archetype) {
+    url = `https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${archetype}`;
+  }
+  axios.get(url)
+    .then((response) => {
+      this.cardsList = response.data.data;
+    })
+ },
+  getArchetypes() {
+    axios.get('https://db.ygoprodeck.com/api/v7/archetypes.php')
+      .then((response) => {
+        this.archetypesList = response.data;
       })
-    }
-  },
+   },
+   onArchetypeChanged(archetype) {
+   this.selectedArchetype = archetype;
+   this.getCards(archetype);
+   },
+ },
   created() {
+    this.getArchetypes();
     this.getCards()
   },
 }
 </script>
 
 <template>
+  <MainSearchArchetype
+      :archetypesList="archetypesList"
+      @archetype-changed="onArchetypeChanged"
+    />
   <div class="card p-2" style="width: 14rem;" v-for="card in cardsList" :key="card.id">
   <img :src="card.card_images[0].image_url" class="card-img-top" :alt="card.name">
   <div class="card-body">

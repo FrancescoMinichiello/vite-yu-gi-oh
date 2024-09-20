@@ -19,11 +19,6 @@ MainSearchArchetype
    <main>
     <div class="container-fluid box-cards py-4 px-5">
       <div class="row">
-        <div class="col-2">
-          <MainSearchArchetype/>
-        </div>
-      </div>
-      <div class="row">
         <div class="col py-4 d-flex gap-3 justify-content-center flex-wrap">
         <CardList/>
         </div>
